@@ -58,7 +58,7 @@ class TimelineActions {
           var time = (new Date(row[0])).getTime();
           var count = row[3];
           
-          if (!_timeline[time]) _timeline[time] = { time };
+          if (!_timeline[time]) _timeline[time] = { time: (new Date(row[0])).toUTCString() };
           if (!_channels[channel]) _channels[channel] = { name: channel, value: 0 };
 
           _timeline[time][channel] = count;
@@ -69,7 +69,7 @@ class TimelineActions {
         var channelUsage = _.values(_channels);
         var timeline = _.map(_timeline, value => {
           channels.forEach(channel => {
-            if (!value[channel.name]) value[channel.name] = 0;
+            if (!value[channel]) value[channel] = 0;
           });
           return value;
         });
